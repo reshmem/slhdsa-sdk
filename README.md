@@ -9,6 +9,7 @@ Rust SLH-DSA core library with C FFI + UniFFI bindings (Python/Swift/Kotlin), Re
 - Optional: `ktlint` for Kotlin formatting (if desired)
 - iOS builds: Xcode + CocoaPods
 - Android builds: Android SDK/NDK + CMake + Java 17+
+- Linux builds (Ubuntu): build-essential, clang, cmake, ninja, pkg-config, JDK 17+
 
 ## Install Cargo tools
 
@@ -42,6 +43,9 @@ You can install all dependencies at once with:
 ```bash
 ./scripts/install_deps.sh
 ```
+
+On Ubuntu, `./scripts/install_deps.sh` will use `apt-get` to install common
+build tools and `openjdk-17-jdk`.
 
 ## Run tests
 

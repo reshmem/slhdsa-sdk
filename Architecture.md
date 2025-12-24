@@ -189,3 +189,8 @@ import {
 - `./scripts/gen-bindings.sh`: regenerates UniFFI bindings.
 - `./scripts/run-tests.sh`: runs multi-language tests.
 - `./scripts/bench.sh`: runs multi-language benchmarks.
+
+## Ubuntu notes
+
+On Ubuntu, run `./scripts/install_deps.sh` to install common build tools
+(clang, cmake, ninja, pkg-config) and `openjdk-17-jdk` via `apt-get`.
