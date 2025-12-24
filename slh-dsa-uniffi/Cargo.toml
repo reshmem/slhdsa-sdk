@@ -1,0 +1,14 @@
+[package]
+name = "slh-dsa-uniffi"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0 OR MIT"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+slh-dsa-core = { path = "../slh-dsa-core" }
+rand_core = { workspace = true }
+uniffi = "0.29.3"
+getrandom = { workspace = true }

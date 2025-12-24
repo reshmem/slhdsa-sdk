@@ -1,0 +1,38 @@
+{
+  "name": "react-native-slh-dsa",
+  "version": "0.0.1",
+  "private": true,
+  "description": "React Native TurboModule wrapper for SLH-DSA UniFFI bindings",
+  "homepage": "https://example.invalid/react-native-slh-dsa",
+  "license": "MIT",
+  "author": "quranium",
+  "main": "src/index.tsx",
+  "react-native": "src/index.tsx",
+  "repository": {
+    "type": "git",
+    "url": "https://example.invalid/react-native-slh-dsa.git"
+  },
+  "scripts": {
+    "ubrn:android": "uniffi-bindgen-react-native build android --release --config ubrn.yml --and-generate && ./scripts/fix-android-codegen.sh",
+    "ubrn:ios": "uniffi-bindgen-react-native build ios --release --config ubrn.yml --and-generate"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "dependencies": {
+    "uniffi-bindgen-react-native": "^0.29.3-1"
+  },
+  "codegenConfig": {
+    "name": "SlhDsaSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.slhdsa"
+    },
+    "outputDir": {
+      "android": "build/generated/source/codegen",
+      "ios": "generated"
+    }
+  }
+}

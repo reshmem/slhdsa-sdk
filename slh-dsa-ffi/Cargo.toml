@@ -1,0 +1,17 @@
+[package]
+name = "slh-dsa-ffi"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0 OR MIT"
+build = "build.rs"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+slh-dsa-core = { path = "../slh-dsa-core" }
+rand_core = { workspace = true }
+getrandom = { workspace = true }
+
+[build-dependencies]
+cbindgen = "0.27"

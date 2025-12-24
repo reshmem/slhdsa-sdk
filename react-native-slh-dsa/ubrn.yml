@@ -1,0 +1,16 @@
+rust:
+  directory: ..
+  manifestPath: slh-dsa-uniffi/Cargo.toml
+
+bindings:
+  cpp: cpp/bindings
+  ts: src/uniffi
+
+android:
+  directory: android
+  jniLibs: app/src/main/jniLibs
+  useSharedLibrary: false
+
+ios:
+  directory: ios
+  frameworkName: slh_dsa_uniffi

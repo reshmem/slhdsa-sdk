@@ -1,0 +1,29 @@
+# Rust
+/target/
+**/target/
+Cargo.lock
+
+# Node
+node_modules/
+**/node_modules/
+
+# Android
+**/.gradle/
+**/local.properties
+**/build/
+**/.cxx/
+**/captures/
+**/.idea/
+**/*.iml
+
+# iOS
+**/Pods/
+**/DerivedData/
+
+# Python
+__pycache__/
+*.pyc
+
+# Misc
+.DS_Store
+.tmp/

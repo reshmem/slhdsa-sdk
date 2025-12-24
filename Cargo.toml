@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+members = [
+  "slh-dsa-core",
+  "slh-dsa-ffi",
+  "slh-dsa-uniffi",
+]
+
+[workspace.package]
+edition = "2021"
+license = "Apache-2.0 OR MIT"
+
+[workspace.dependencies]
+slh-dsa = "0.2.0-rc.1"
+rand_core = "0.10.0-rc-3"
+hybrid-array = "0.4"
+getrandom = "0.3"

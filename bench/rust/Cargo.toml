@@ -1,0 +1,11 @@
+[package]
+name = "slh-dsa-bench"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+slh-dsa-core = { path = "../../slh-dsa-core" }
+getrandom = "0.3"
+rand_core = "0.10.0-rc-3"
+
+[workspace]
