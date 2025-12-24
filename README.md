@@ -7,11 +7,14 @@ Rust SLH-DSA core library with C FFI + UniFFI bindings (Python/Swift/Kotlin), Re
 - Rust toolchain (stable)
 - `npm` or `yarn`
 - Optional: `ktlint` for Kotlin formatting (if desired)
+- iOS builds: Xcode + CocoaPods
+- Android builds: Android SDK/NDK + CMake + Java 17+
 
 ## Install Cargo tools
 
 ```bash
 cargo install uniffi --features cli
+cargo install cargo-ndk
 ```
 
 ## Install Rust targets (iOS/Android)
@@ -55,10 +58,54 @@ Notes:
 ## Benchmarks
 
 See `bench/README.md` for per-language benchmarks (Rust, Python, Kotlin, Node.js N-API, TypeScript/React Native).
+Run them all with:
+
+```bash
+./scripts/bench.sh
+```
 
 ## Example React Native app
 
 See `example-project/SlhDsaBenchApp/README.md` for a React Native app that runs the Shake-256f bench on-device.
+Make sure `ANDROID_HOME` points to your Android SDK and `JAVA_HOME` points to a Java 17+ JDK.
+
+## Architecture
+
+See `Architecture.md` for a guided tour of the layers and integration patterns.
+
+## Third-party integration (git submodule)
+
+If you consume this repo from another React Native project:
+
+1) Add the submodule:
+```bash
+git submodule add <repo-url> vendor/slhdsa-sdk
+git submodule update --init --recursive
+```
+2) Build the library:
+```bash
+cd vendor/slhdsa-sdk
+npm install
+cargo build -p slh-dsa-uniffi --release
+./scripts/gen-bindings.sh
+cd react-native-slh-dsa
+npm run ubrn:ios
+npm run ubrn:android
+```
+3) Install into your app:
+```bash
+npm install ./vendor/slhdsa-sdk/react-native-slh-dsa
+```
+4) iOS:
+```bash
+cd ios && pod install
+```
+5) Android:
+- Set `ANDROID_HOME` and `JAVA_HOME`
+- Ensure NDK + CMake installed
+
+If you use symlinks/monorepo layout, update Metro’s `watchFolders` and `extraNodeModules`
+to include `vendor/slhdsa-sdk/react-native-slh-dsa`.
 
 ## Updating API (Rust upstream -> bindings)
 
@@ -180,6 +227,8 @@ Build the native addon for your host platform:
 ```bash
 ./scripts/build-napi.sh
 ```
+
+You can override the native path with `SLH_DSA_NAPI_PATH=/path/to/slh_dsa_napi.node`.
 
 Use it from Node.js:
 

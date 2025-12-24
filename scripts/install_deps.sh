@@ -2,6 +2,7 @@
 set -euo pipefail
 
 cargo install uniffi --features cli
+cargo install cargo-ndk
 
 if command -v brew >/dev/null 2>&1; then
   brew install kotlin
