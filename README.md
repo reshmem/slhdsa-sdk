@@ -86,7 +86,7 @@ git submodule update --init --recursive
 ```bash
 cd vendor/slhdsa-sdk
 npm install
-cargo build -p slh-dsa-uniffi --release
+./scripts/build.sh
 ./scripts/gen-bindings.sh
 cd react-native-slh-dsa
 npm run ubrn:ios
@@ -112,32 +112,28 @@ to include `vendor/slhdsa-sdk/react-native-slh-dsa`.
 When you add or change a public API in the Rust crates, regenerate the UniFFI bindings and rebuild the RN library:
 
 1) Update the UniFFI surface in `slh-dsa-uniffi/src/lib.rs` (export the new API).
-2) Rebuild the Rust libs:
+2) Rebuild the Rust libs and N-API addon:
 ```bash
-cargo build -p slh-dsa-uniffi --release
+./scripts/build.sh
 ```
 3) Regenerate all bindings (Python/Swift/Kotlin/TS):
 ```bash
 ./scripts/gen-bindings.sh
 ```
-4) Rebuild the N-API module (Node.js/TypeScript):
-```bash
-./scripts/build-napi.sh
-```
-5) Rebuild the React Native TurboModule library:
+4) Rebuild the React Native TurboModule library:
 ```bash
 cd react-native-slh-dsa
 npm run ubrn:ios
 npm run ubrn:android
 ```
-6) Reinstall the example app and refresh Metro:
+5) Reinstall the example app and refresh Metro:
 ```bash
 cd example-project/SlhDsaBenchApp
 npm install
 cd ios && pod install
 PORT=8082 npm run start -- --port 8082 --reset-cache
 ```
-7) Rebuild and run Android (device/emulator):
+6) Rebuild and run Android (device/emulator):
 ```bash
 cd example-project/SlhDsaBenchApp
 PORT=8082 npm run android -- --no-packager --port 8082
@@ -169,6 +165,8 @@ You can use the helper scripts:
 ./scripts/build.sh
 ./scripts/gen-bindings.sh
 ```
+
+Order matters: build first, then generate bindings.
 
 `scripts/gen-bindings.sh` creates a temporary symlink if your target dir contains spaces (required by the React Native bindgen).
 
