@@ -26,6 +26,12 @@ Common env vars:
 ./bench/kotlin/run.sh
 ```
 
+## Node.js N-API
+
+```bash
+./bench/napi/run.sh
+```
+
 ## TypeScript (React Native JSI)
 
 This requires a React Native environment with the JSI module registered as

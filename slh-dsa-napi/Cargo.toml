@@ -1,0 +1,19 @@
+[package]
+name = "slh-dsa-napi"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0 OR MIT"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+slh-dsa-core = { path = "../slh-dsa-core" }
+rand_core = { workspace = true }
+getrandom = { workspace = true }
+
+napi = { version = "2", default-features = false, features = ["napi6"] }
+napi-derive = "2"
+
+[build-dependencies]
+napi-build = "2"

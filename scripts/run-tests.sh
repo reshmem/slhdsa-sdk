@@ -73,4 +73,5 @@ if ! command -v npx >/dev/null 2>&1; then
 else
   npx tsc -p tests/ts/tsconfig.json
   npx tsx tests/ts/test.ts
+  npx tsx tests/ts/test_napi.ts
 fi

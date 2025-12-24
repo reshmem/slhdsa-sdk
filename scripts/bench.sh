@@ -13,6 +13,8 @@ echo "=== Bench: Python ==="
 ./bench/python/run.sh
 echo "=== Bench: Kotlin ==="
 ./bench/kotlin/run.sh
+echo "=== Bench: Node.js N-API ==="
+./bench/napi/run.sh
 
 if [[ "${RUN_TS_BENCH:-}" == "1" ]]; then
   echo "=== Bench: TypeScript (React Native JSI) ==="

@@ -2,3 +2,4 @@
 set -euo pipefail
 
 cargo build -p slh-dsa-ffi -p slh-dsa-uniffi --release
+./scripts/build-napi.sh

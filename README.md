@@ -1,6 +1,6 @@
 # slhdsa-sdk
 
-Rust SLH-DSA core library with C FFI + UniFFI bindings (Python/Swift/Kotlin) and React Native TypeScript/JSI bindings.
+Rust SLH-DSA core library with C FFI + UniFFI bindings (Python/Swift/Kotlin), React Native TypeScript/JSI bindings, and a Node.js N-API TypeScript module.
 
 ## Prerequisites
 
@@ -54,7 +54,7 @@ Notes:
 
 ## Benchmarks
 
-See `bench/README.md` for per-language benchmarks (Rust, Python, Kotlin, TypeScript/React Native).
+See `bench/README.md` for per-language benchmarks (Rust, Python, Kotlin, Node.js N-API, TypeScript/React Native).
 
 ## Example React Native app
 
@@ -73,20 +73,24 @@ cargo build -p slh-dsa-uniffi --release
 ```bash
 ./scripts/gen-bindings.sh
 ```
-4) Rebuild the React Native TurboModule library:
+4) Rebuild the N-API module (Node.js/TypeScript):
+```bash
+./scripts/build-napi.sh
+```
+5) Rebuild the React Native TurboModule library:
 ```bash
 cd react-native-slh-dsa
 npm run ubrn:ios
 npm run ubrn:android
 ```
-5) Reinstall the example app and refresh Metro:
+6) Reinstall the example app and refresh Metro:
 ```bash
 cd example-project/SlhDsaBenchApp
 npm install
 cd ios && pod install
 PORT=8082 npm run start -- --port 8082 --reset-cache
 ```
-6) Rebuild and run Android (device/emulator):
+7) Rebuild and run Android (device/emulator):
 ```bash
 cd example-project/SlhDsaBenchApp
 PORT=8082 npm run android -- --no-packager --port 8082
@@ -95,7 +99,7 @@ PORT=8082 npm run android -- --no-packager --port 8082
 ## Build native libraries
 
 ```bash
-cargo build -p slh-dsa-ffi -p slh-dsa-uniffi --release
+./scripts/build.sh
 ```
 
 Artifacts are built in the cargo target directory:
@@ -108,6 +112,7 @@ Key artifacts live in `$(CARGO_TARGET_DIR:-$PWD/target)/release/`:
 
 - `libslh_dsa_ffi` (C ABI)
 - `libslh_dsa_uniffi` (UniFFI)
+- `slh-dsa-napi/slh_dsa_napi.node` (Node.js N-API)
 
 ## Generate bindings
 
@@ -167,6 +172,34 @@ Outputs:
 
 - TypeScript: `bindings/ts/slh_dsa_uniffi.ts`, `bindings/ts/slh_dsa_uniffi-ffi.ts`
 - C++ JSI glue: `bindings/cpp/slh_dsa_uniffi.cpp`, `bindings/cpp/slh_dsa_uniffi.hpp`
+
+### Node.js N-API (TypeScript)
+
+Build the native addon for your host platform:
+
+```bash
+./scripts/build-napi.sh
+```
+
+Use it from Node.js:
+
+```js
+const slh = require("./slh-dsa-napi");
+
+const param = slh.ParameterSetId.Shake256f;
+const keypair = slh.slhDsaKeypairGenerate(param);
+const msg = Buffer.from("hello");
+const ctx = Buffer.alloc(0);
+const sig = slh.slhDsaSign(param, keypair.signingKey, msg, ctx);
+const ok = slh.slhDsaVerify(
+  param,
+  keypair.verifyingKey,
+  msg,
+  ctx,
+  sig.signature
+);
+console.log(ok);
+```
 
 ## C header
 

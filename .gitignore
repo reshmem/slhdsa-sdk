@@ -6,6 +6,7 @@ Cargo.lock
 # Node
 node_modules/
 **/node_modules/
+slh-dsa-napi/*.node
 
 # Android
 **/.gradle/

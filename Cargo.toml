@@ -4,6 +4,7 @@ members = [
   "slh-dsa-core",
   "slh-dsa-ffi",
   "slh-dsa-uniffi",
+  "slh-dsa-napi",
 ]
 
 [workspace.package]
