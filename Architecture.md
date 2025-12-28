@@ -182,6 +182,9 @@ import {
 - React Native JSI benchmarks only work inside an RN runtime.
 - Rebuild bindings after any public API changes.
 - Native artifacts are in `${CARGO_TARGET_DIR:-$PWD/target}` by default.
+- On Windows, the helper scripts are Bash; run them from WSL2 or Git Bash.
+- Windows shared libs are `.dll` and may be named `slh_dsa_uniffi.dll` without the `lib` prefix.
+- WSL2 generally has fewer path/line-ending issues than Git Bash, especially for build scripts.
 
 ## Scripts to know
 
