@@ -10,18 +10,23 @@ Rust SLH-DSA core library with C FFI + UniFFI bindings (Python/Swift/Kotlin), Re
 - iOS builds: Xcode + CocoaPods
 - Android builds: Android SDK/NDK + CMake + Java 17+
 - Linux builds (Ubuntu): build-essential, clang, cmake, ninja, pkg-config, JDK 17+
-- Windows builds: Visual Studio Build Tools (Desktop development with C++ + Windows SDK), CMake, Ninja, Java 17+
+- Windows builds: Visual Studio Build Tools (Desktop development with C++ + Windows SDK), CMake, Ninja, Java 17+, Git, Node.js (LTS)
 
 ## Windows notes
 
 - Use WSL2 (Ubuntu) or Git Bash to run the `./scripts/*.sh` helpers.
 - `./scripts/install_deps.sh` is Linux/macOS only; install deps manually on Windows.
-- Rust MSVC toolchain recommended: `rustup default stable-x86_64-pc-windows-msvc`.
+- Rust MSVC toolchain recommended: `rustup toolchain install stable-x86_64-pc-windows-msvc` then `rustup default stable-x86_64-pc-windows-msvc`.
 - Windows shared libs are `.dll` and may not have the `lib` prefix; check `target/release` when wiring `--library` paths.
+- For Android builds on Windows: install Android Studio (SDK + NDK + CMake) and set `ANDROID_HOME`.
+- For Kotlin tests: install `kotlinc` and `ktlint` (optional).
+- Prefer the MSVC toolchain over GNU for compatibility with VS Build Tools (see `scripts/windows-setup.md`).
+- If you hit path/space issues, set `CARGO_TARGET_DIR` to a short path (e.g. `C:\slh-target`).
+- iOS builds require macOS + Xcode; on Windows, run iOS builds on a Mac CI or dev machine.
 
 ## Windows quickstart (MSVC)
 
-1) Install Rust (MSVC), Node.js, Java 17+, CMake, Ninja, and Visual Studio Build Tools (C++ workload).
+1) Install Rust (MSVC), Node.js (LTS), Java 17+, Git, CMake, Ninja, and Visual Studio Build Tools (C++ workload).
 2) Open Git Bash or WSL2 in the repo root.
 3) Install JS deps:
 ```bash
@@ -43,6 +48,8 @@ npm install
 bash ./scripts/build.sh
 bash ./scripts/gen-bindings.sh
 ```
+
+More details: `scripts/windows-setup.md`.
 
 ## Install Cargo tools
 
@@ -73,6 +80,8 @@ npm install
 This installs `uniffi-bindgen-react-native` and `prettier` (used for TS formatting).
 It also installs `typescript` and `tsx` for the TypeScript test runner.
 
+Windows note: use `npm` if your environment blocks Yarn config from your home directory.
+
 You can install all dependencies at once with:
 
 ```bash
@@ -93,6 +102,7 @@ Notes:
 - Kotlin tests download `jna-5.14.0.jar` on first run.
 - Kotlin requires `kotlinc` and `ktlint` (installed by `./scripts/install_deps.sh` when `brew` is available).
 - Gradle is installed by `./scripts/install_deps.sh` when `brew` is available.
+- Windows: run tests from WSL2 or Git Bash; Android/iOS-specific tests require their respective SDKs and platforms.
 
 ## Benchmarks
 
